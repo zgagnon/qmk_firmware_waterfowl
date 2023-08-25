@@ -20,13 +20,14 @@
 #define ST7789_NUM_DEVICES 1
 
 /* SPI settings. */
-#define SPI_DRIVER SPID1
+#define SPI_DRIVER SPID0
 #define SPI_SCK_PIN GP18
 #define SPI_MOSI_PIN GP19
 // We don't actually use MISO, so set it to a pin we don't use.
 // Otherwise it likely get's tripped up as we use GP16 for D/C
-#define SPI_MISO_PIN GP11 
+#define SPI_MISO_PIN GP16
 
 #define DISPLAY_CS_PIN GP17
 #define DISPLAY_RST_PIN GP24
 #define DISPLAY_DC_PIN GP23
+#define DISPLAY_BL_PIN GP22

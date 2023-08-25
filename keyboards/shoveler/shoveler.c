@@ -5,7 +5,7 @@ kb_runtime_config kb_state;
 static painter_device_t display;
 static painter_image_handle_t image;
 void keyboard_post_init_kb(void) {
-    display = qp_st7789_make_spi_device(240, 280, DISPLAY_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, 8, 3);
+    display = qp_st7789_make_spi_device(240, 280, DISPLAY_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, 8, 0);
 
     qp_init(display, QP_ROTATION_180);
     qp_power(display, true);
@@ -14,4 +14,5 @@ void keyboard_post_init_kb(void) {
     if (image != NULL) {
         qp_drawimage(display, (239 - image->width), (280 - image->height), image);
     }
+    qp_flush(display);
 }
