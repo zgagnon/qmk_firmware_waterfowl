@@ -1,0 +1,78 @@
+{
+    "keyboard_name": "Shoveler",
+    "manufacturer": "Jawick",
+    "url": "",
+    "maintainer": "JW2586",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x9CE3",
+        "device_version": "0.0.1"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",  
+    "matrix_size": {
+        "cols": 11,
+        "rows": 4
+    },  
+    "diode_direction": "COL2ROW",
+
+    "matrix_pins": {
+        "cols": ["GP0", "GP1", "GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP8", "GP9", "GP10"],
+        "rows": ["GP12", "GP13", "GP14", "GP15"]
+    },
+
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "label": "K0", "matrix": [0, 0], "w": 1, "x": 0, "y": 0},
+                { "label": "K1", "matrix": [0, 1], "w": 1, "x": 1, "y": 0},
+                { "label": "K2", "matrix": [0, 2], "w": 1, "x": 2, "y": 0},
+                { "label": "K3", "matrix": [0, 3], "w": 1, "x": 3, "y": 0},
+                { "label": "K4", "matrix": [0, 4], "w": 1, "x": 4, "y": 0},
+                { "label": "K5", "matrix": [0, 5], "w": 1, "x": 5, "y": 0},
+                { "label": "K6", "matrix": [0, 6], "w": 1, "x": 6, "y": 0},
+                { "label": "K7", "matrix": [0, 7], "w": 1, "x": 7, "y": 0},
+                { "label": "K8", "matrix": [0, 8], "w": 1, "x": 8, "y": 0},
+                { "label": "K9", "matrix": [0, 9], "w": 1, "x": 9, "y": 0},
+                { "label": "K10", "matrix": [0, 10], "w": 1, "x": 10, "y": 0},
+
+                { "label": "K11", "matrix": [1, 0], "w": 1, "x": 0, "y": 1},
+                { "label": "K12", "matrix": [1, 1], "w": 1, "x": 1, "y": 1},
+                { "label": "K13", "matrix": [1, 2], "w": 1, "x": 2, "y": 1},
+                { "label": "K14", "matrix": [1, 3], "w": 1, "x": 3, "y": 1},
+                { "label": "K15", "matrix": [1, 4], "w": 1, "x": 4, "y": 1},
+                { "label": "K16", "matrix": [1, 5], "w": 1, "x": 5, "y": 1},
+                { "label": "K17", "matrix": [1, 6], "w": 1, "x": 6, "y": 1},
+                { "label": "K18", "matrix": [1, 7], "w": 1, "x": 7, "y": 1},
+                { "label": "K19", "matrix": [1, 8], "w": 1, "x": 8, "y": 1},
+                { "label": "K20", "matrix": [1, 9], "w": 1, "x": 9, "y": 1},
+                { "label": "K21", "matrix": [1, 10], "w": 1, "x": 10, "y": 1},
+
+                { "label": "K22", "matrix": [2, 0], "w": 1, "x": 0, "y": 2},
+                { "label": "K23", "matrix": [2, 1], "w": 1, "x": 1, "y": 2},
+                { "label": "K24", "matrix": [2, 2], "w": 1, "x": 2, "y": 2},
+                { "label": "K25", "matrix": [2, 3], "w": 1, "x": 3, "y": 2},
+                { "label": "K26", "matrix": [2, 4], "w": 1, "x": 4, "y": 2},
+                { "label": "K27", "matrix": [2, 5], "w": 1, "x": 5, "y": 2},
+                { "label": "K28", "matrix": [2, 6], "w": 1, "x": 6, "y": 2},
+                { "label": "K29", "matrix": [2, 7], "w": 1, "x": 7, "y": 2},
+                { "label": "K30", "matrix": [2, 8], "w": 1, "x": 8, "y": 2},
+                { "label": "K31", "matrix": [2, 9], "w": 1, "x": 9, "y": 2},
+                { "label": "K32", "matrix": [2, 10], "w": 1, "x": 10, "y": 2},
+                
+                { "label": "K33", "matrix": [3, 0], "w": 1, "x": 0, "y": 3},
+                { "label": "K34", "matrix": [3, 1], "w": 1, "x": 1, "y": 3},
+                { "label": "K35", "matrix": [3, 2], "w": 1, "x": 2, "y": 3},
+                { "label": "K36", "matrix": [3, 3], "w": 1, "x": 3, "y": 3},
+                { "label": "K37", "matrix": [3, 4], "w": 1, "x": 4, "y": 3},
+                { "label": "K38", "matrix": [3, 5], "w": 1, "x": 5, "y": 3},
+                { "label": "K39", "matrix": [3, 6], "w": 1, "x": 6, "y": 3},
+                { "label": "K40", "matrix": [3, 7], "w": 1, "x": 7, "y": 3},
+                { "label": "K41", "matrix": [3, 8], "w": 1, "x": 8, "y": 3},
+                { "label": "K42", "matrix": [3, 9], "w": 1, "x": 9, "y": 3},
+                { "label": "K43", "matrix": [3, 10], "w": 1, "x": 10, "y": 3}
+                
+            ]
+        }
+    }
+}
