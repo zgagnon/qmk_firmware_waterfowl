@@ -2,3 +2,6 @@ QUANTUM_PAINTER_ENABLE = yes
 QUANTUM_PAINTER_DRIVERS += st7789_spi
 
 SRC += vaporwave1.qgf.c
+
+BACKLIGHT_ENABLE = yes
+BACKLIGHT_DRIVER = software
