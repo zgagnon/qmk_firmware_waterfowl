@@ -112,7 +112,6 @@ compile_commands.json
 via*.json
 /keyboards/**/keymaps/vial/*
 
-
 # Local files
 .envrc
 .direnv/
