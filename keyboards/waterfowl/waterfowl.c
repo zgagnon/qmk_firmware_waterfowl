@@ -16,34 +16,34 @@
 
 #include "quantum.h"
 
-#ifdef ENCODER_ENABLE
+#ifdef ENCODER_ENABLE                                                                                               
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false; 
     }
     if (index == 0) { // Left roller
         if (clockwise) {
+            tap_code16(G(KC_LBRC));
+        } else {
+            tap_code16(G(KC_RBRC));
+        }
+    } else if (index == 1) { // Left encoder
+        if (clockwise) {
             tap_code(KC_MS_WH_DOWN);
         } else {
             tap_code(KC_MS_WH_UP);
         }
-    } else if (index == 1) { // Left encoder
-        if (clockwise) {
-            tap_code16(S(KC_TAB));
-        } else {
-            tap_code(KC_TAB);
-        }
     } else if (index == 2) { // Right roller
         if (clockwise) {
-            tap_code16(S(KC_MS_WH_DOWN));
+            tap_code16(G(KC_Z));
         } else {
-            tap_code16(S(KC_MS_WH_UP));
+            tap_code16(G(S(KC_Z)));
         }
     } else if (index == 3) { // Right encoder
         if (clockwise) {
-            tap_code(KC_RIGHT);
+            tap_code(KC_MS_WH_DOWN);
         } else {
-            tap_code(KC_LEFT);
+            tap_code(KC_MS_WH_UP);
         }
     }
 
