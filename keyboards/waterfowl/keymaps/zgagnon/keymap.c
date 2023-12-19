@@ -22,7 +22,58 @@ enum layer_names {
     _SYMNUM,
     _NAV,
     _FUNC,
+	_RECT,
 };
+
+enum {
+	TD_SHIFT_ESC,
+};
+
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Escape, twice for Caps Lock
+    [TD_SHIFT_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_ESC),
+};
+
+enum custom_keycodes {
+	QK_RIGHT_ARROW = SAFE_RANGE,
+	QK_LEFT_ARROW,
+	QK_RIGHT_EQUALS_ARROW,
+	QK_LESS_EQUALS, 
+	QK_GREATER_EQUALS,
+	QK_SHRUGGIE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	switch (keycode) {
+		case QK_RIGHT_ARROW:
+			if (record->event.pressed) {
+				SEND_STRING("->");
+			}
+			break;
+		case QK_LEFT_ARROW:
+			if (record->event.pressed) {
+				SEND_STRING("<-");
+			}
+			break;
+		case QK_RIGHT_EQUALS_ARROW:
+			if (record->event.pressed) {
+				SEND_STRING("=>");
+			}
+			break;
+		case QK_LESS_EQUALS:
+			if (record->event.pressed) {
+				SEND_STRING("<=");
+			}
+			break;
+		case QK_GREATER_EQUALS:
+			if (record->event.pressed) {
+				SEND_STRING(">=");
+			}
+			break;
+	}
+	return true;
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -41,9 +92,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_COLEMAK] = LAYOUT(
 	KC_Q,				KC_W,				KC_F,				KC_P,				KC_G,			KC_J,	KC_L,				KC_U,				KC_Y,				KC_QUOT,
-	MT(MOD_LGUI, KC_A),	MT(MOD_LALT, KC_R),	MT(MOD_LCTL, KC_S),	MT(MOD_LSFT, KC_T),	KC_D,			KC_H,	MT(MOD_LSFT, KC_N),	MT(MOD_LCTL, KC_E),	MT(MOD_LALT, KC_I),	MT(MOD_LGUI, KC_O),
+	MT(MOD_LGUI, KC_A),	MT(MOD_LALT, KC_R),	MT(MOD_LCTL, KC_S), KC_T,	KC_D,			KC_H,	MT(MOD_LSFT, KC_N),	MT(MOD_LCTL, KC_E),	MT(MOD_LALT, KC_I),	MT(MOD_LGUI, KC_O),
 	KC_Z,				KC_X,				KC_C,				KC_V,				KC_B,			KC_K,	KC_M,				KC_COMM,			KC_DOT,				KC_SCLN,
-	KC_1,				TG(_SYMNUM),		KC_BSPC,			KC_LSFT,			KC_ESC,		LGUI(LCTL(LSFT(KC_4))),	KC_ENT,				KC_SPC,				KC_TAB,		KC_4
+	KC_1,				TG(_SYMNUM),		KC_BSPC,			TD(TD_SHIFT_ESC),			KC_ESC,		LGUI(LCTL(LSFT(KC_4))),	KC_ENT,				KC_SPC,				LT(_RECT, KC_TAB),		KC_4
 ),
 
 /* _SYMNUM
@@ -69,20 +120,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* _NAV
  *
  * ,----------------------------------.                      ,----------------------------------.
- * |      | PgUp |  UP  | PgDn |      |                      |      |      |   ^  |      |      |
+ * |      | PgUp |  UP  | PgDn |      |                      |  <-  |  ->  |   ^  |  =>  |      |
  * |------+------+------+------+------|                      |------+------+------+------+------|
  * | Home | Left | Down | Right| End  |                      |   _  |   '  |   "  |   ~  |   `  |
  * |------+------+------+------+------|  ,-----.    ,-----.  |------+------+------+------+------|
- * |      |  CUT | COPY | PASTE|      |  |CAPS |    |NUMLK|  |      |      |      |      |      |
+ * |      |  CUT | COPY | PASTE|      |  |CAPS |    |NUMLK|  |  <=  |  =>  |      |      |¯\_(ツ)_/¯|
  * `----------------------------------'  `-----'    `-----'  `----------------------------------'
  *          ,-----.   ,--------------------.            ,--------------------.   ,-----. 
  *          |  1  |   | L1  | SPACE | ESC  |            |  ENT  | BS | ENTER |   |  4  |
  *          `-----'   `--------------------'            `--------------------'   `-----'
  */
 [_NAV] = LAYOUT(
-	KC_NO,		KC_PGUP,		KC_UP,			KC_PGDN,	KC_NO,			KC_NO,		KC_NO,		KC_CIRC,	KC_NO,			KC_NO,
+	KC_NO,		KC_PGUP,		KC_UP,			KC_PGDN,	KC_NO,			QK_LEFT_ARROW,		QK_RIGHT_ARROW,		KC_CIRC,	QK_RIGHT_EQUALS_ARROW,			KC_NO,
 	KC_HOME,	KC_LEFT,		KC_DOWN,		KC_RGHT,	KC_END,			KC_UNDS,	KC_QUOT,	KC_DQT,		KC_TILD,		KC_GRV,
-	KC_NO,		LGUI(KC_X),		LGUI(KC_C),		LGUI(KC_V),		KC_NO,			KC_NO,		KC_NO,		KC_NO,		KC_NO,			KC_NO,
+	KC_NO,		LGUI(KC_X),		LGUI(KC_C),		LGUI(KC_V),		KC_NO,		QK_LESS_EQUALS,		QK_GREATER_EQUALS,		KC_NO,		KC_NO,			QK_SHRUGGIE,
 	KC_1,		TO(_COLEMAK),	LT(1,KC_SPC),	KC_ESC,		KC_CAPS,		KC_NUM,		KC_ENT,		KC_BSPC,	LT(2,KC_ENT),	KC_4
 ),
 
@@ -103,6 +154,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_NO,	KC_NO,			KC_NO,			KC_NO,	KC_NO,			KC_NO,	KC_F7,	KC_F8,		KC_F9,			KC_F11,
 	KC_NO,	KC_NO,			KC_NO,			KC_NO,	KC_NO,			KC_NO,	KC_F4,	KC_F5,		KC_F6,			KC_F12,
 	QK_BOOT,	KC_NO,			KC_NO,			KC_NO,	KC_NO,			KC_F10,	KC_F1,	KC_F2,		KC_F3,			KC_F13,
+	KC_1,	TO(_COLEMAK),	LT(1,KC_SPC),	KC_ESC,	KC_CAPS,		KC_NUM,	KC_ENT,	KC_BSPC,	LT(2,KC_ENT),	KC_4
+),
+
+/* Rect
+ *
+ * ,----------------------------------.                      ,----------------------------------.
+ * |      |      |      |      |      |                      |      |  UP  |  DN  |  F9  |  F11 |
+ * |------+------+------+------+------|                      |------+------+------+------+------|
+ * |      |      |      |      |      |                      |      |  LT  |  RT  |  F6  |  F12 |
+ * |------+------+------+------+------|  ,-----.    ,-----.  |------+------+------+------+------|
+ * | Reset|      |      |      |      |  |CAPS |    |NUMLK|  |  F10 |  UR  |  DR  |  UL  |  DL |
+ * `----------------------------------'  `-----'    `-----'  `----------------------------------'
+ *          ,-----.   ,--------------------.            ,--------------------.   ,-----. 
+ *          |  1  |   | L1 | SPACE | ESC  |            |  ENT  | BS | ENTER |   |  4  |
+ *          `-----'   `--------------------'            `--------------------'   `-----'
+ */
+[_RECT] =  LAYOUT(
+	KC_NO,	KC_NO,			KC_NO,			KC_NO,	KC_NO,			KC_NO,	LALT(LGUI(KC_UP)),	LALT(LGUI(KC_DOWN)),		KC_F9,			KC_F11,
+	KC_NO,	KC_NO,			KC_NO,			KC_NO,	KC_NO,			KC_NO,	LALT(LGUI(KC_LEFT)),	LALT(LGUI(KC_RIGHT)),		KC_F6,			KC_F12,
+	QK_BOOT,	KC_NO,			KC_NO,			KC_NO,	KC_NO,			KC_F10,	LCTL(LGUI(KC_LEFT)),	LSFT(LCTL(LGUI(KC_UP))),		LCTL(LGUI(KC_RIGHT)),			LSFT(LCTL(LGUI(KC_RIGHT))),
 	KC_1,	TO(_COLEMAK),	LT(1,KC_SPC),	KC_ESC,	KC_CAPS,		KC_NUM,	KC_ENT,	KC_BSPC,	LT(2,KC_ENT),	KC_4
 ),
 };
