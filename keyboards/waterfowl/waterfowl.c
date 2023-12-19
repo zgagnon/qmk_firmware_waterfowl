@@ -76,10 +76,10 @@ bool oled_task_kb(void) {
                oled_write_P(PSTR("FUNCTION\n\n\n\n"), false);
                break;
            case 2:
-               oled_write_P(PSTR("SYMBOLS\n\n\n\n"), false);
+               oled_write_P(PSTR("NAV & SYM\n\n\n\n"), false);
                break;
            case 1:
-               oled_write_P(PSTR("NAVIGATIONAND\nNUMBERS\n"), false);
+               oled_write_P(PSTR("BRACKETS\n\nNUMBERS\n"), false);
                break;
            default:
                oled_write_ln_P(PSTR("Undefined"), false);
