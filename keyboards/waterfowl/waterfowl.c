@@ -73,13 +73,13 @@ bool oled_task_kb(void) {
                oled_write_P(PSTR("DEFAULT\n\n\n\n"), false);
                break;
            case 3:
-               oled_write_P(PSTR("FUNCTION\n\n\n\n"), false);
+               oled_write_P(PSTR("DeShift\nNav & Num\n\n\n\n\n"), false);
                break;
            case 2:
-               oled_write_P(PSTR("NAV & SYM\n\n\n\n"), false);
+               oled_write_P(PSTR("SuperShift\nBrackes\nArrows\n\n\n\n"), false);
                break;
            case 1:
-               oled_write_P(PSTR("BRACKETS\n\nNUMBERS\n"), false);
+               oled_write_P(PSTR("1\n\n\n\n"), false);
                break;
            default:
                oled_write_ln_P(PSTR("Undefined"), false);
