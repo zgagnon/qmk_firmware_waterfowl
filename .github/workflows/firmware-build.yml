@@ -1,0 +1,24 @@
+name: 'Build Zgagnon keyboards'
+
+
+on:
+  push
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: QMK Keyboard firmware build
+        uses: justgook/qmk-build@v1
+        with:
+          keymap-path: "keyboards/waterfowl/keymaps/zgagnon"
+          keyboard: "waterfowl"
+          keymap: "zgagnon"
+
+      - name: Upload the firmware
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: firmware
+          path: build
