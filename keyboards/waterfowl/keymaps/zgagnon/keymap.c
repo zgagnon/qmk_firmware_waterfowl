@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "QMK_KEYBOARD_H"
+#include QMK_KEYBOARD_H
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -24,6 +24,7 @@ enum layer_names {
     _DESHIFT,
     _FUNC,
     _RECT,
+    _SPOON,
 };
 
 enum {
@@ -43,6 +44,7 @@ enum custom_keycodes {
     QK_LEQU,
     QK_GEQU,
     QK_SHRUGGIE,
+    QK_ELXPIP,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -72,6 +74,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(">=");
             }
             break;
+        case QK_ELXPIP:
+            if (record->event.pressed) {
+                SEND_STRING("|>");
+            }
+            break;
     }
     return true;
 }
@@ -88,10 +95,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |   Z  |   X  |   C  |   V  |   B  |  |ESC |    |SCRNST| |   K  |   M  |   ,  |   .  |   :  |
      * `----------------------------------'  `-----'    `-----'  `----------------------------------'
      *          ,-----.   ,--------------------.            ,--------------------.   ,-----.
-     *          |  1  |   | SuShift| DeShift | SHIFT  |     |  ENT  | SPAC | TAB |   |  4  |
+     *          |  1  |   | SuShift| DeShift | SHIFT  |     |  ENT  | SPAC | ESC |   |  4  |
      *          `-----'   `--------------------'            `--------------------'   `-----'
      */
-    [_COLEMAK] = LAYOUT(KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_QUOT, MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_R), MT(MOD_LCTL, KC_S), KC_T, KC_D, KC_H, MT(MOD_LSFT, KC_N), MT(MOD_LCTL, KC_E), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_O), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SCLN, KC_1, MO(_SUSHIFT), LT(_DESHIFT, KC_BSPC), TD(TD_SHIFT_ESC), KC_ESC, LGUI(LCTL(LSFT(KC_4))), KC_ENT, KC_SPC, LT(_RECT, KC_TAB), KC_4),
+    [_COLEMAK] = LAYOUT(KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_QUOT, MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_R), MT(MOD_LCTL, KC_S), KC_T, KC_D, KC_H, MT(MOD_LSFT, KC_N), MT(MOD_LCTL, KC_E), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_O), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SCLN, KC_1, MO(_SUSHIFT), LT(_DESHIFT, KC_BSPC), TD(TD_SHIFT_ESC), KC_ESC, LGUI(LCTL(LSFT(KC_4))), KC_ENT, LT(_SPOON, KC_SPC), KC_ESC, KC_4),
 
     /* _SUSHIFT
      *
@@ -111,17 +118,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* _DESHIFT
      *
      * ,----------------------------------.                      ,----------------------------------.
-     * |      | PgUp |  UP  | PgDn |      |                      |      |  7  |   8  |  9   |       |
+     * |      | PgUp |  UP  | PgDn |      |                      |   |> |  7  |   8  |  9   | CAPS  |
      * |------+------+------+------+------|                      |------+------+------+------+------|
      * | Home | Left | Down | Right| End  |                      |   _  |  4  |   5  |  6   |       |
      * |------+------+------+------+------|  ,-----.    ,-----.  |------+------+------+------+------|
      * |      |  CUT | COPY | PASTE|  CW  |  |CAPS |    |NUMLK|  |   0 |  1  |   2   |   3   |      |
      * `----------------------------------'  `-----'    `-----'  `----------------------------------'
      *          ,-----.   ,--------------------.            ,--------------------.   ,-----.
-     *          |  1  |   | L1  | SPACE | ESC  |            |  ENT  | BS | ENTER |   |  4  |
+     *          |  1  |   | L1  | SPACE | ESC  |            |  ENT  | BS | TAB|   |  4  |
      *          `-----'   `--------------------'            `--------------------'   `-----'
      */
-    [_DESHIFT] = LAYOUT(KC_NO, KC_PGUP, KC_UP, KC_PGDN, KC_NO, KC_NO, KC_7, KC_8, KC_9, KC_NO, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END, KC_UNDS, KC_4, KC_5, KC_6, KC_NO, KC_NO, LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), CW_TOGG, KC_0, KC_1, KC_2, KC_3, KC_NO, KC_1, TO(_COLEMAK), LT(1, KC_SPC), KC_ESC, KC_CAPS, KC_NUM, KC_ENT, KC_BSPC, TO(_FUNC), KC_4),
+    [_DESHIFT] = LAYOUT(KC_NO, KC_PGUP, KC_UP, KC_PGDN, KC_NO, QK_ELXPIP, KC_7, KC_8, KC_9, QK_CAPS_WORD_TOGGLE, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END, KC_UNDS, KC_4, KC_5, KC_6, KC_NO, KC_NO, LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), CW_TOGG, KC_0, KC_1, KC_2, KC_3, KC_NO, KC_1, TO(_COLEMAK), LT(1, KC_SPC), KC_ESC, KC_CAPS, KC_NUM, KC_TAB, KC_TAB, TO(_FUNC), KC_4),
 
     /* FUNC
      *
@@ -152,4 +159,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *          `-----'   `--------------------'            `--------------------'   `-----'
      */
     [_RECT] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, LALT(LGUI(KC_UP)), LALT(LGUI(KC_DOWN)), LCTL(LALT(LSFT(KC_F))), KC_F11, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, LALT(LGUI(KC_LEFT)), LALT(LGUI(KC_RIGHT)), KC_F6, KC_F12, QK_BOOT, KC_NO, KC_NO, KC_NO, KC_NO, KC_F10, LCTL(LGUI(KC_LEFT)), LSFT(LCTL(LGUI(KC_UP))), LCTL(LGUI(KC_RIGHT)), LSFT(LCTL(LGUI(KC_RIGHT))), KC_1, TO(_COLEMAK), LT(1, KC_SPC), KC_ESC, KC_CAPS, KC_NUM, KC_ENT, KC_BSPC, LT(2, KC_ENT), KC_4),
+
+    /* PaperWM.spoon
+     *
+     * ,----------------------------------.                      ,----------------------------------.
+     * |      |      | sx_u |      |      |                      |->col |<-scrn|foc_u |->scrn|spc->1|
+     * |------+------+------+------+------|                      |------+------+------+------+------|
+     * |      | sx_l | sx_d | sx_r |      |                      |col-> |foc_l |foc_d |foc_r |spc->2|
+     * |------+------+------+------+------|  ,-----.    ,-----.  |------+------+------+------+------|
+     * | Reset|      |      |      |      |  |CAPS |    |NUMLK|  | Cen  | full | ->w  | ->h  |spc->3|
+     * `----------------------------------'  `-----'    `-----'  `----------------------------------'
+     *          ,-----.   ,--------------------.            ,--------------------.   ,-----
+     *          |  1  |   | L1 | SPACE | ESC  |            |  ENT  | BS | ENTER |   |  4  |
+     *          `-----'   `--------------------'            `--------------------'   `-----'
+     */
+    [_SPOON] = LAYOUT(KC_NO, KC_NO, LGUI(LCTL(LALT(LSFT(KC_UP)))), KC_NO, KC_NO,                                                                              // row 1 left hand
+                      LGUI(LCTL(LALT(KC_I))), LGUI(LCTL(LALT(KC_COMMA))), LGUI(LCTL(LALT(KC_UP))), LGUI(LCTL(LALT(KC_DOT))), LGUI(LCTL(LALT(LSFT(KC_1)))),    // row 1 right hand
+                      KC_NO, LGUI(LCTL(LALT(LSFT(KC_LEFT)))), LGUI(LCTL(LALT(LSFT(KC_DOWN)))), LGUI(LCTL(LALT(LSFT(KC_RIGHT)))), KC_NO,                       // row 2 left hand
+                      LGUI(LCTL(LALT(KC_O))), LGUI(LCTL(LALT(KC_LEFT))), LGUI(LCTL(LALT(KC_DOWN))), LGUI(LCTL(LALT(KC_RIGHT))), LGUI(LCTL(LALT(LSFT(KC_2)))), // row 2 right hand
+                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                                                                      // row 3 left hand
+                      LGUI(LCTL(LALT(KC_C))), LGUI(LCTL(LALT(KC_F))), LGUI(LCTL(LALT(KC_R))), LGUI(LCTL(LALT(LSFT(KC_R)))), LGUI(LCTL(LALT(LSFT(KC_3)))),     // row 3 right hand
+
+                      KC_1, TO(_COLEMAK), LT(1, KC_SPC), KC_ESC, KC_CAPS, KC_NUM, KC_ENT, KC_BSPC, LT(2, KC_ENT), KC_4),
 };
